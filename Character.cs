@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 
 /*Todo list
@@ -13,11 +13,19 @@ public class Character
     //Attributes
     int Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma;
     //Base Statistics
-    String race, classname, name;
-    int level;
+    String name;
+    Profession prof;
     //Derived Statistics
-    int Hitpoints, currHP, ArmorClass, InitBonus, Speed, size, profBonus;
-    //Skills
+    Skill[] profSkills;
+    int Hitpoints, currHP, ArmorClass, InitBonus, Speed, profBonus;
+    int size; //size 0 = insignificantly small
+              //size 1 = bug sized
+              //size 2 = cat sized
+              //size 3 = halfling size
+              //size 4 = normal human size
+              //size 5 = ogre size
+              //size 6 = giant sized
+              //size 7 = ancient dragon sized
     Skill Acrobatics = new Skill(false, "Dexterity", this);
     Skill AnimalHandling = new Skill(false, "Wisdom", this);
     Skill Arcana = new Skill(false, "Intelligence", this);
@@ -36,9 +44,8 @@ public class Character
     Skill SleightofHand = new Skill(false, "Dexterity", this);
     Skill Stealth = new Skill(false, "Dexterity", this);
     Skill Survival = new Skill(false, "Wisdom", this);
-
-    //Type
-        //Need separate class
+    //Race
+    //Need separate class
     //Position
     int x, y, z;
     //Status
@@ -58,7 +65,7 @@ public class Character
         unconscious = false;
 
     //Constructor
-    public Character()
+    public Character(String iscalled, Profession isProf/*, Race isRace*/)
 	{
         z = 0;
         x = 0;
@@ -70,8 +77,17 @@ public class Character
         Wisdom = 10;
         Charisma = 10;
         race = "Human";
-        size = medium;
+        //race = isRace;
+        size = 4;
+        //size = isRace.getSize();
         ArmorClass = 10;
+        profSkills = isProf.getSkills();
+        int numskills = profSkills.Length;
+        for(int i = 0; i < numskills; i++)
+        {
+            profSkills[i].setProf();
+        }
+        Hitpoints = isProf.getHitDie();
     }
 
     //Getters
