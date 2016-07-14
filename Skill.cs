@@ -9,7 +9,10 @@ private class Skill
         proficient = prof;
         relevant_attribute = relAtt;
 	}
-
+    public bool setProf()
+    {
+        proficient = true;
+    }
     public bool getProf() { return proficient; }
     public String getAtt() { return relevantAttribute; }
 }
